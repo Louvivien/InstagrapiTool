@@ -6,10 +6,6 @@ from pydantic import BaseModel, Field
 from typing import Type
 
 
-# class GreetingsInput(BaseModel):
-#     greetings: str = Field(..., description="Greeting message to be sent")
-
-
 class InstagrapiInput(BaseModel):
     message: str = Field(..., description="Message to be sent")
 
@@ -18,18 +14,9 @@ class InstagrapiTool(BaseTool):
     """
     Instagrapi Tool
     """
-    # OK
     name: str = "Instagrapi Tool"
-    # OK
     args_schema: Type[BaseModel] = InstagrapiInput
-    # OK
     description: str = "Tool for sending a message that you have previously written to a user on Instagram. Do not write the message you want to send in a file or it will not work."
-
-    # def _execute(self, message: str = None):
-    #     from_name = self.get_tool_config('FROM')
-    #     greetings_str = greetings + "\n" + from_name
-    #     return greetings_str
-
     
     def send_message(self, message: str = None):
         # if isinstance(tool_input, str):
@@ -63,36 +50,4 @@ class InstagrapiTool(BaseTool):
             print('Message failed')
             print(e)
     
-    
-# class GreetingsTool(BaseTool):
-#     """
-#     Greetings Tool
-#     """
-#     name: str = "Greetings Tool"
-#     args_schema: Type[BaseModel] = GreetingsInput
-#     description: str = "Sends a Greeting Message"
-
-#     def _execute(self, greetings: str = None):
-#         from_name = self.get_tool_config('FROM')
-#         greetings_str = greetings + "\n" + from_name
-#         return greetings_str
-
-
-
-# //////////////
-
-
-# Validation rules for Auto-GPT
-# class InstagramSendInputSchema(BaseModel):
-#     tool_input: str = Field(...)
-
-#     @root_validator
-#     def validate_input(cls, values: Dict[str, Any]) -> Dict:
-#         tool_input = values["tool_input"]
-#         if not tool_input:
-#             raise ValueError("You are using the send_message tool without providing a message to send. To make this work you first need to write the message then use this tool. Do not write the message in a file or it will not work")
-
-#         if tool_input.endswith('.txt'):
-#             raise ValueError("You are using the send_message tool with a file. This tool does not work with files, you need to write a regular message, not provide a file")
-
-#         return values
+  
