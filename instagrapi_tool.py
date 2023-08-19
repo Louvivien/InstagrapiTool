@@ -17,8 +17,8 @@ class InstagrapiTool(BaseTool):
     name: str = "Instagrapi Tool"
     args_schema: Type[BaseModel] = InstagrapiInput
     description: str = "Tool for sending a message that you have previously written to a user on Instagram. Do not write the message you want to send in a file or it will not work."
-    
-    def send_message(self, message: str = None):
+
+    def _execute(self, message: str = None):
         # if isinstance(tool_input, str):
         #     tool_input = InstagramSendInputSchema(tool_input=tool_input)
         # message = tool_input.tool_input
@@ -43,8 +43,9 @@ class InstagrapiTool(BaseTool):
             self.thread_id = result.thread_id
             self.last_sent_message = message
             self.last_sent_timestamp = thread.messages[0].timestamp
-            print("Message sent successfully")
-            return  "Message sent successfully"
+            message_str = "Message sent successfully"
+            print(message_str )
+            return  message_str 
 
         except ClientError as e:
             print('Message failed')
